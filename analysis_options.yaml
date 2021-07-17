@@ -1,0 +1,43 @@
+include: package:lint/analysis_options.yaml
+
+analyzer:
+  exclude:
+
+linter:
+  rules:
+    # Use parameter order as in json response
+    always_put_required_named_parameters_first: false
+
+    # Util classes are awesome!
+    avoid_classes_with_only_static_members: false
+
+    # Always use Single quotes
+    prefer_single_quotes: true
+    avoid_escaping_inner_quotes: false
+
+    # Blindly follow the Flutter code style, which prefers types everywhere
+    always_specify_types: true
+
+    avoid_void_async: false
+
+    # To support async redux naming conventions
+    file_names: false
+
+    # Disable it to be able to pass parameters to routes
+    no_logic_in_create_state: false
+
+    # I like conditional expressions
+    prefer_if_elements_to_conditional_expressions: false
+
+    require_trailing_commas: true
+
+    sized_box_for_whitespace: true
+
+    # Allow boolean vars to be positional
+    avoid_positional_boolean_parameters: false
+
+    # Makes code more verbose
+    avoid_redundant_argument_values: false
+
+    # Can't get it right, Doesn't really matter
+    sort_pub_dependencies: false
