@@ -10,23 +10,35 @@ const SpeedDialInfo standardSpeedDialInfo = SpeedDialInfo(
   activeIcon: Icons.close,
 );
 
-const List<NavigationItem> standardNavigationItems = <NavigationItem>[
+final List<NavigationItem> standardNavigationItems = <NavigationItem>[
   NavigationItem(
     isPrimary: true,
     label: 'Capture Lost Child',
     icon: Icons.camera_alt,
     onlyMobile: true,
+    onPress: (_) async {
+      final XFile? image = await ImageSelector().captureImage();
+      if (image != null) {
+        debugPrint(image.path);
+      }
+    },
   ),
   NavigationItem(
     isPrimary: true,
     label: 'Select Lost Child',
     icon: Icons.drive_folder_upload,
+    onPress: (_) async {
+      final XFile? image = await ImageSelector().selectImage();
+      if (image != null) {
+        debugPrint(image.path);
+      }
+    },
   ),
-  NavigationItem(
+  const NavigationItem(
     label: 'Search Lost Child',
     icon: Icons.search,
   ),
-  NavigationItem(
+  const NavigationItem(
     label: 'List Lost Children',
     icon: Icons.people,
   ),
