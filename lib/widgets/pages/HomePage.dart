@@ -22,7 +22,6 @@ class HomePage extends StatelessWidget {
           'Under construction',
         ),
       ),
-      navigationItems: standardNavigationItems,
     );
   }
 }
