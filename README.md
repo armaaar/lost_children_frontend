@@ -2,6 +2,10 @@
 
 A new Flutter project.
 
+## Structure
+
+This app uses [Atmoic design](https://bradfrost.com/blog/post/atomic-web-design/) to categorize widgets
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
