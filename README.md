@@ -9,3 +9,4 @@ This app uses [Atmoic design](https://bradfrost.com/blog/post/atomic-web-design/
 ## TODO list
 
 - Add unit tests
+- Add [Semantics](https://api.flutter.dev/flutter/widgets/Semantics-class.html)

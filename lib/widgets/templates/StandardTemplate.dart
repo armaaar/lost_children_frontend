@@ -1,10 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:loading_overlay/loading_overlay.dart';
 import 'package:lost_children_frontend/interfaces/NavigationItem.dart';
 import 'package:lost_children_frontend/interfaces/SpeedDialInfo.dart';
 import 'package:lost_children_frontend/settings/ThemeSettings.dart';
 import 'package:lost_children_frontend/settings/navigation.dart';
+import 'package:lost_children_frontend/store/AppState.model.dart';
+import 'package:provider_for_redux/provider_for_redux.dart';
 
 class StandardTemplate extends StatelessWidget {
   final String title;
@@ -59,65 +62,73 @@ class StandardTemplate extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: body,
-      floatingActionButton: speedDialExists
-          ? SpeedDial(
-              icon: Icons.add,
-              activeIcon: Icons.close,
-              spacing: ThemeSettings.spaceNotch,
-              tooltip: 'Open Speed Dial',
-              renderOverlay: false,
-              children: primaryNavigationItems
-                  .map<SpeedDialChild>(
-                    (NavigationItem navigationItem) => SpeedDialChild(
-                      onTap: () => navigationItem.onPress!(context),
-                      label: navigationItem.label,
-                      child: Icon(navigationItem.icon),
-                    ),
+    return ReduxSelector<AppState, dynamic>(
+      selector: (_, AppState state) => <dynamic>[state.ui],
+      builder: (BuildContext context, _, AppState state, __, ___, ____) =>
+          Scaffold(
+        appBar: AppBar(
+          title: Text(title),
+        ),
+        body: LoadingOverlay(
+          isLoading: state.ui.loading,
+          child: body,
+        ),
+        floatingActionButton: speedDialExists
+            ? SpeedDial(
+                icon: Icons.add,
+                activeIcon: Icons.close,
+                spacing: ThemeSettings.spaceNotch,
+                tooltip: 'Open Speed Dial',
+                renderOverlay: false,
+                children: primaryNavigationItems
+                    .map<SpeedDialChild>(
+                      (NavigationItem navigationItem) => SpeedDialChild(
+                        onTap: () => navigationItem.onPress!(context),
+                        label: navigationItem.label,
+                        child: Icon(navigationItem.icon),
+                      ),
+                    )
+                    .toList(),
+              )
+            : floatingButtonExists
+                ? FloatingActionButton(
+                    onPressed: () =>
+                        primaryNavigationItems[0].onPress!(context),
+                    tooltip: primaryNavigationItems[0].label,
+                    child: Icon(primaryNavigationItems[0].icon),
                   )
-                  .toList(),
-            )
-          : floatingButtonExists
-              ? FloatingActionButton(
-                  onPressed: () => primaryNavigationItems[0].onPress!(context),
-                  tooltip: primaryNavigationItems[0].label,
-                  child: Icon(primaryNavigationItems[0].icon),
-                )
-              : null,
-      floatingActionButtonLocation: navigationBarExists
-          ? FloatingActionButtonLocation.endDocked
-          : FloatingActionButtonLocation.endFloat,
-      bottomNavigationBar: navigationBarExists
-          ? BottomAppBar(
-              color: ThemeSettings.colorNavigation,
-              shape: const CircularNotchedRectangle(),
-              notchMargin: ThemeSettings.spaceNotch,
-              child: Padding(
-                // make sure icons doesn't slip under the notch
-                padding: const EdgeInsets.only(left: 10, right: 90),
-                child: Row(
-                  //children inside bottom appbar
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: normalNavigationItems
-                      .map<Widget>((NavigationItem navigationItem) =>
-                          IconButton(
-                            icon: Icon(
-                              navigationItem.icon,
-                              color: ThemeSettings.colorText,
-                            ),
-                            tooltip: navigationItem.label,
-                            onPressed: () => navigationItem.onPress!(context),
-                          ))
-                      .toList(),
+                : null,
+        floatingActionButtonLocation: navigationBarExists
+            ? FloatingActionButtonLocation.endDocked
+            : FloatingActionButtonLocation.endFloat,
+        bottomNavigationBar: navigationBarExists
+            ? BottomAppBar(
+                color: ThemeSettings.colorNavigation,
+                shape: const CircularNotchedRectangle(),
+                notchMargin: ThemeSettings.spaceNotch,
+                child: Padding(
+                  // make sure icons doesn't slip under the notch
+                  padding: const EdgeInsets.only(left: 10, right: 90),
+                  child: Row(
+                    //children inside bottom appbar
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: normalNavigationItems
+                        .map<Widget>((NavigationItem navigationItem) =>
+                            IconButton(
+                              icon: Icon(
+                                navigationItem.icon,
+                                color: ThemeSettings.colorText,
+                              ),
+                              tooltip: navigationItem.label,
+                              onPressed: () => navigationItem.onPress!(context),
+                            ))
+                        .toList(),
+                  ),
                 ),
-              ),
-            )
-          : null,
+              )
+            : null,
+      ),
     );
   }
 }

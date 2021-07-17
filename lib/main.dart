@@ -1,25 +1,40 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:lost_children_frontend/settings/ThemeSettings.dart';
+import 'package:lost_children_frontend/store/AppState.model.dart';
+import 'package:lost_children_frontend/utils/GlobalRedux.dart';
 import 'package:lost_children_frontend/widgets/pages/HomePage.dart';
+import 'package:provider_for_redux/provider_for_redux.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MainApp(
+    store: GlobalRedux.store,
+  ));
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MainApp extends StatelessWidget {
+  final Store<AppState> store;
+
+  const MainApp({
+    Key? key,
+    required this.store,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Lost Children',
-      theme: ThemeData(
-          primarySwatch: ThemeSettings.colorSwatch,
-          textTheme: const TextTheme(
-              bodyText2: TextStyle(
-                  letterSpacing: 0.5,
-                  color: ThemeSettings.colorText,
-                  fontSize: ThemeSettings.fontSizeNormal))),
-      home: const HomePage(title: 'Lost Children'),
+    return AsyncReduxProvider<AppState>.value(
+      value: store,
+      child: MaterialApp(
+        title: 'Lost Children',
+        theme: ThemeData(
+            primarySwatch: ThemeSettings.colorSwatch,
+            textTheme: const TextTheme(
+                bodyText2: TextStyle(
+                    letterSpacing: 0.5,
+                    color: ThemeSettings.colorText,
+                    fontSize: ThemeSettings.fontSizeNormal))),
+        home: const HomePage(title: 'Lost Children'),
+      ),
     );
   }
 }
