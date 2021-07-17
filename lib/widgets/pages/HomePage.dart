@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lost_children_frontend/settings/navigation.dart';
 import 'package:lost_children_frontend/widgets/templates/StandardTemplate.dart';
 
 class HomePage extends StatelessWidget {
@@ -21,6 +22,7 @@ class HomePage extends StatelessWidget {
           'Under construction',
         ),
       ),
+      navigationItems: standardNavigationItems,
     );
   }
 }
