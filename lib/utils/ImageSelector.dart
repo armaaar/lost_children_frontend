@@ -26,8 +26,8 @@ class ImageSelector {
       );
     } catch (e) {
       pickImageError = e;
-      return null;
     }
+    return null;
   }
 
   Future<XFile?> selectImage() async {

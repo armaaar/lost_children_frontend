@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:lost_children_frontend/interfaces/NavigationItem.dart';
 import 'package:lost_children_frontend/interfaces/SpeedDialInfo.dart';
-import 'package:lost_children_frontend/store/ui/actions/loading.action.dart';
-import 'package:lost_children_frontend/utils/GlobalRedux.dart';
-import 'package:lost_children_frontend/utils/ImageSelector.dart';
+import 'package:lost_children_frontend/utils/functions/uploadImageForDetection.dart';
 
 const SpeedDialInfo standardSpeedDialInfo = SpeedDialInfo(
   label: 'Add a child',
@@ -18,27 +15,15 @@ final List<NavigationItem> standardNavigationItems = <NavigationItem>[
     label: 'Capture Lost Child',
     icon: Icons.camera_alt,
     onlyMobile: true,
-    onPress: (_) async {
-      GlobalRedux.dispatch(EnableLoadingAction());
-      final XFile? image = await ImageSelector().captureImage();
-      if (image != null) {
-        debugPrint(image.path);
-      }
-      GlobalRedux.dispatch(DisableLoadingAction());
-    },
+    onPress: (BuildContext context) =>
+        uploadImageForDetection(context, ImageSelectionMethod.capture),
   ),
   NavigationItem(
     isPrimary: true,
     label: 'Select Lost Child',
     icon: Icons.drive_folder_upload,
-    onPress: (_) async {
-      GlobalRedux.dispatch(EnableLoadingAction());
-      final XFile? image = await ImageSelector().selectImage();
-      if (image != null) {
-        debugPrint(image.path);
-      }
-      GlobalRedux.dispatch(DisableLoadingAction());
-    },
+    onPress: (BuildContext context) =>
+        uploadImageForDetection(context, ImageSelectionMethod.select),
   ),
   const NavigationItem(
     label: 'Search Lost Child',
