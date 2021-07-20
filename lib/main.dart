@@ -38,7 +38,10 @@ class MainApp extends StatelessWidget {
                     letterSpacing: 0.5,
                     color: ThemeSettings.colorText,
                     fontSize: ThemeSettings.fontSizeNormal))),
-        home: const HomePage(title: 'Lost Children'),
+        initialRoute: HomePage.route,
+        routes: <String, Widget Function(BuildContext)>{
+          HomePage.route: (BuildContext context) => const HomePage(),
+        },
       ),
     );
   }

@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:lost_children_frontend/widgets/templates/StandardTemplate.dart';
 
 class HomePage extends StatelessWidget {
+  static const String route = '/';
   final String title;
 
-  const HomePage({Key? key, required this.title}) : super(key: key);
+  const HomePage({
+    Key? key,
+    this.title = 'Lost Children',
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
