@@ -47,5 +47,11 @@
 	<true/>
 	<key>NSMicrophoneUsageDescription</key>
 	<true/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<true/>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<true/>
 </dict>
 </plist>
