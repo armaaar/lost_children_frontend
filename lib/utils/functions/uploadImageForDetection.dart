@@ -4,6 +4,7 @@ import 'package:lost_children_frontend/settings/APISettings.dart';
 import 'package:lost_children_frontend/store/ui/actions/loading.action.dart';
 import 'package:lost_children_frontend/utils/GlobalRedux.dart';
 import 'package:lost_children_frontend/utils/ImageSelector.dart';
+import 'package:lost_children_frontend/utils/functions/getBackendError.dart';
 import 'package:lost_children_frontend/utils/functions/showNavigationSnackBar.dart';
 import 'package:lost_children_frontend/utils/functions/uploadImage.dart';
 import 'package:http/http.dart' as http;
@@ -28,7 +29,7 @@ void uploadImageForDetection(
   if (response.statusCode != 200) {
     showNavigationSnackBar(
       context,
-      'Error: ${response.reasonPhrase}',
+      getBackendError(response),
       isError: true,
     );
   }
