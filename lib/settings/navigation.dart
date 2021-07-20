@@ -19,14 +19,6 @@ final List<NavigationItem> standardNavigationItems = <NavigationItem>[
     onPress: (BuildContext context) =>
         uploadImageForDetection(context, ImageSelectionMethod.capture),
   ),
-  NavigationItem(
-    isPrimary: true,
-    onlyMobile: true,
-    label: 'Select Lost Child',
-    icon: Icons.drive_folder_upload,
-    onPress: (BuildContext context) =>
-        uploadImageForDetection(context, ImageSelectionMethod.select),
-  ),
   const NavigationItem(
     isPrimary: kIsWeb,
     label: 'Search Lost Child',
