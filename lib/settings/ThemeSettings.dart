@@ -12,4 +12,8 @@ abstract class ThemeSettings {
 
   // spacing
   static const double spaceNotch = 5;
+  static const double spaceSection = 20;
+
+  // Icons sizes
+  static const double iconSizeLarge = 100;
 }
