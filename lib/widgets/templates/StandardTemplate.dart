@@ -8,7 +8,7 @@ import 'package:lost_children_frontend/settings/ThemeSettings.dart';
 import 'package:lost_children_frontend/settings/navigation.dart';
 import 'package:lost_children_frontend/store/AppState.model.dart';
 import 'package:lost_children_frontend/utils/NetworkInterface.dart';
-import 'package:lost_children_frontend/widgets/molecules/NetworkOnHandler.widget.dart';
+import 'package:lost_children_frontend/widgets/molecules/NetworkOnHandler.dart';
 import 'package:provider_for_redux/provider_for_redux.dart';
 
 class StandardTemplate extends StatelessWidget {
@@ -75,7 +75,13 @@ class StandardTemplate extends StatelessWidget {
             ),
             body: LoadingOverlay(
               isLoading: state.ui.loading,
-              child: NetworkOnHandler(child: body),
+              child: NetworkOnHandler(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  padding: const EdgeInsets.all(ThemeSettings.spaceSection),
+                  child: body,
+                ),
+              ),
             ),
             floatingActionButton: isConnected && speedDialExists
                 ? SpeedDial(
