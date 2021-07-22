@@ -9,9 +9,11 @@ abstract class ThemeSettings {
 
   // Font sizes
   static const double fontSizeNormal = 16;
+  static const double fontSizeHeadline = 32;
 
   // spacing
   static const double spaceNotch = 5;
+  static const double spaceButton = 20;
   static const double spaceSection = 20;
 
   // Icons sizes

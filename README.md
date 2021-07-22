@@ -24,3 +24,4 @@ This app uses [Atmoic design](https://bradfrost.com/blog/post/atomic-web-design/
 - Add [Semantics](https://api.flutter.dev/flutter/widgets/Semantics-class.html)
 - Better error messages
 - Add i18n
+- Create Data Transfer Objects for backend communication

@@ -6,6 +6,7 @@ import 'package:lost_children_frontend/store/ui/actions/networkConnection.action
 import 'package:lost_children_frontend/utils/GlobalRedux.dart';
 import 'package:lost_children_frontend/utils/NetworkInterface.dart';
 import 'package:lost_children_frontend/widgets/pages/HomePage.dart';
+import 'package:lost_children_frontend/widgets/pages/SelectFacePage.dart';
 import 'package:provider_for_redux/provider_for_redux.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -47,6 +48,8 @@ class MainApp extends StatelessWidget {
         initialRoute: HomePage.route,
         routes: <String, Widget Function(BuildContext)>{
           HomePage.route: (BuildContext context) => const HomePage(),
+          SelectFacePage.route: (BuildContext context) =>
+              const SelectFacePage(),
         },
       ),
     );

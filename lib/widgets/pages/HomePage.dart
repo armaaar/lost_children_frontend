@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lost_children_frontend/widgets/atoms/Headline.dart';
 import 'package:lost_children_frontend/widgets/templates/StandardTemplate.dart';
 
 class HomePage extends StatelessWidget {
@@ -20,10 +21,8 @@ class HomePage extends StatelessWidget {
     // than having to individually change instances of widgets.
     return StandardTemplate(
       title: title,
-      body: const Center(
-        child: Text(
-          'Under construction',
-        ),
+      body: const Headline(
+        text: 'Under construction',
       ),
     );
   }
