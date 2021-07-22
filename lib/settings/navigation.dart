@@ -20,7 +20,7 @@ final List<NavigationItem> standardNavigationItems = <NavigationItem>[
         uploadImageForDetection(context, ImageSelectionMethod.capture),
   ),
   const NavigationItem(
-    isPrimary: kIsWeb,
+    isPrimary: kIsWeb && !kDebugMode,
     label: 'Search Lost Child',
     icon: Icons.search,
   ),
@@ -28,4 +28,15 @@ final List<NavigationItem> standardNavigationItems = <NavigationItem>[
     label: 'List Lost Children',
     icon: Icons.people,
   ),
+  ...kDebugMode
+      ? <NavigationItem>[
+          NavigationItem(
+            isPrimary: true,
+            label: 'Select Lost Child',
+            icon: Icons.drive_folder_upload,
+            onPress: (BuildContext context) =>
+                uploadImageForDetection(context, ImageSelectionMethod.select),
+          ),
+        ]
+      : <NavigationItem>[]
 ];
