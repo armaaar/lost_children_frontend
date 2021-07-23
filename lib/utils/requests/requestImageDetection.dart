@@ -4,9 +4,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:lost_children_frontend/settings/APISettings.dart';
 import 'package:lost_children_frontend/store/ui/actions/loading.action.dart';
 import 'package:lost_children_frontend/store/uploadedImage/actions/set.action.dart';
+import 'package:lost_children_frontend/utils/BackendMessage.dart';
 import 'package:lost_children_frontend/utils/GlobalRedux.dart';
 import 'package:lost_children_frontend/utils/ImageSelector.dart';
-import 'package:lost_children_frontend/utils/functions/getBackendError.dart';
 import 'package:lost_children_frontend/utils/GeoLocation.dart';
 import 'package:lost_children_frontend/utils/functions/sendRequest.dart';
 import 'package:lost_children_frontend/utils/functions/showNavigationSnackBar.dart';
@@ -50,11 +50,12 @@ void requestImageDetection(
   );
   GlobalRedux.dispatch(DisableLoadingAction());
 
+  final BackendMessage backendMessage = BackendMessage.fromResponse(response);
   // handle error
-  if (response.statusCode != 200) {
+  if (backendMessage.isError) {
     return showNavigationSnackBar(
       context,
-      getBackendError(response),
+      'Error: ${backendMessage.message}.',
       state: SnackBarState.error,
     );
   }
@@ -71,5 +72,10 @@ void requestImageDetection(
   ));
 
   // Navigate to select faces page
+  showNavigationSnackBar(
+    context,
+    backendMessage.message,
+    state: SnackBarState.success,
+  );
   await Navigator.pushNamed(context, SelectFacePage.route);
 }
