@@ -5,7 +5,8 @@ abstract class ThemeSettings {
   static const MaterialColor colorSwatch = Colors.blue;
   static const Color colorText = Color(0xff000000);
   static const Color colorNavigation = Color(0xffffffff);
-  static const Color colorError = Color(0xffff0000);
+  static const Color colorError = Color(0xffff3548);
+  static const Color colorSuccess = Color(0xff01c851);
 
   // Font sizes
   static const double fontSizeNormal = 16;

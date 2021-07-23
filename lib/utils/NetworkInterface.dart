@@ -3,8 +3,9 @@ import 'dart:io';
 import 'package:async/async.dart' show StreamGroup;
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:http/http.dart' as http;
+import 'package:lost_children_frontend/interfaces/RequestEndPoint.dart';
 import 'package:lost_children_frontend/settings/APISettings.dart';
+import 'package:lost_children_frontend/utils/functions/sendRequest.dart';
 
 enum NetworkState { connected, none }
 
@@ -18,7 +19,7 @@ Map<ConnectivityResult, NetworkState> _networkStateMap =
 NetworkState? _lastConnectionState;
 
 abstract class NetworkInterface {
-  static final String url = APISettings.statusUrl;
+  static final RequestEndPoint healthEndpoint = APISettings.status;
   static const int testPeriod = 10;
   static const int timeout = 10;
 
@@ -53,7 +54,8 @@ abstract class NetworkInterface {
 
   static Future<NetworkState> _testInternetConnection() async {
     try {
-      await http.head(Uri.parse(url)).timeout(const Duration(seconds: timeout));
+      await sendRequest(healthEndpoint)
+          .timeout(const Duration(seconds: timeout));
       _lastConnectionState = NetworkState.connected;
       return NetworkState.connected;
     } on TimeoutException catch (e) {

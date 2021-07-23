@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lost_children_frontend/settings/APISettings.dart';
@@ -9,15 +7,15 @@ import 'package:lost_children_frontend/store/uploadedImage/actions/set.action.da
 import 'package:lost_children_frontend/utils/GlobalRedux.dart';
 import 'package:lost_children_frontend/utils/ImageSelector.dart';
 import 'package:lost_children_frontend/utils/functions/getBackendError.dart';
-import 'package:lost_children_frontend/interfaces/GeoLocation.dart';
+import 'package:lost_children_frontend/utils/GeoLocation.dart';
+import 'package:lost_children_frontend/utils/functions/sendRequest.dart';
 import 'package:lost_children_frontend/utils/functions/showNavigationSnackBar.dart';
-import 'package:lost_children_frontend/utils/functions/uploadImage.dart';
 import 'package:http/http.dart' as http;
 import 'package:lost_children_frontend/widgets/pages/SelectFacePage.dart';
 
 enum ImageSelectionMethod { capture, select }
 
-void uploadImageForDetection(
+void requestImageDetection(
   BuildContext context,
   ImageSelectionMethod selectionMethod,
 ) async {
@@ -30,7 +28,7 @@ void uploadImageForDetection(
     return showNavigationSnackBar(
       context,
       e.toString(),
-      isError: true,
+      state: SnackBarState.error,
     );
   }
 
@@ -42,12 +40,12 @@ void uploadImageForDetection(
 
   // Send request
   GlobalRedux.dispatch(EnableLoadingAction());
-  final http.Response response = await uploadImage(
-    APISettings.detectUrl,
-    image,
-    <String, dynamic>{
+  final http.Response response = await sendRequest(
+    APISettings.detect,
+    fields: <String, dynamic>{
       'state': 'lost',
       'location': location,
+      'image': base64Encode(await image.readAsBytes())
     },
   );
   GlobalRedux.dispatch(DisableLoadingAction());
@@ -57,7 +55,7 @@ void uploadImageForDetection(
     return showNavigationSnackBar(
       context,
       getBackendError(response),
-      isError: true,
+      state: SnackBarState.error,
     );
   }
 
@@ -65,15 +63,13 @@ void uploadImageForDetection(
   final Map<String, dynamic> responseObject =
       jsonDecode(response.body) as Map<String, dynamic>;
 
-  final Uint8List markedImage =
-      base64.decode(responseObject['image'].toString());
-
   GlobalRedux.dispatch(SetUploadedImageAction(
-    markedImage: markedImage,
+    imageId: int.parse(responseObject['imageId'].toString()),
+    markedImage: base64.decode(responseObject['image'].toString()),
     facesHandlers: (responseObject['handlers'] as Map<String, dynamic>)
         .cast<String, int>(),
   ));
 
   // Navigate to select faces page
-  Navigator.pushNamed(context, SelectFacePage.route);
+  await Navigator.pushNamed(context, SelectFacePage.route);
 }

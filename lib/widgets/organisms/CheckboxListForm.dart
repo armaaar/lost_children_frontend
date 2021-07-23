@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lost_children_frontend/settings/ThemeSettings.dart';
 import 'package:lost_children_frontend/widgets/atoms/Headline.dart';
 import 'package:lost_children_frontend/widgets/atoms/StandardButton.dart';
 import 'package:lost_children_frontend/widgets/molecules/CheckboxList.dart';
@@ -37,6 +38,7 @@ class _CheckboxListFormState<T> extends State<CheckboxListForm<T>> {
             checkedList = newList;
           },
         ),
+        const SizedBox(height: ThemeSettings.spaceSection),
         StandardButton(
           text: widget.buttonText,
           onPressed: () {
