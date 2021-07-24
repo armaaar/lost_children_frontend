@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:loading_overlay/loading_overlay.dart';
 import 'package:lost_children_frontend/settings/ThemeSettings.dart';
 import 'package:lost_children_frontend/widgets/atoms/NetworkHandler.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class NetworkOnHandler extends StatelessWidget {
   final Widget child;
@@ -14,10 +14,7 @@ class NetworkOnHandler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NetworkHandler(
-        networkLoading: LoadingOverlay(
-          isLoading: true,
-          child: const SizedBox(),
-        ),
+        networkLoading: const SpinKitRing(color: ThemeSettings.colorSwatch),
         networkOff: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

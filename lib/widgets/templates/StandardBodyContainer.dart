@@ -19,18 +19,21 @@ class StandardBodyContainer extends StatelessWidget {
     return ReduxSelector<AppState, dynamic>(
         selector: (_, AppState state) => <dynamic>[state.ui],
         builder: (BuildContext context, _, AppState state, __, ___, ____) {
-          return LoadingOverlay(
-            isLoading: state.ui.loading,
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              padding: const EdgeInsets.all(ThemeSettings.spaceSection),
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Container(
-                  constraints: const BoxConstraints(
-                      maxWidth: ThemeSettings.screenMaxWidth),
-                  child: NetworkOnHandler(
-                    child: body,
+          return SafeArea(
+            child: LoadingOverlay(
+              isLoading: state.ui.loading,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                padding: const EdgeInsets.all(ThemeSettings.spaceSection),
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
+                    constraints: const BoxConstraints(
+                      maxWidth: ThemeSettings.screenMaxWidth,
+                    ),
+                    child: NetworkOnHandler(
+                      child: body,
+                    ),
                   ),
                 ),
               ),
