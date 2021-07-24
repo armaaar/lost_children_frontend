@@ -1,14 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:loading_overlay/loading_overlay.dart';
 import 'package:lost_children_frontend/interfaces/NavigationItem.dart';
 import 'package:lost_children_frontend/interfaces/SpeedDialInfo.dart';
 import 'package:lost_children_frontend/settings/ThemeSettings.dart';
 import 'package:lost_children_frontend/settings/navigation.dart';
 import 'package:lost_children_frontend/store/AppState.model.dart';
 import 'package:lost_children_frontend/utils/NetworkInterface.dart';
-import 'package:lost_children_frontend/widgets/molecules/NetworkOnHandler.dart';
+import 'package:lost_children_frontend/widgets/molecules/StandardAppBar.dart';
+import 'package:lost_children_frontend/widgets/templates/StandardBodyContainer.dart';
 import 'package:provider_for_redux/provider_for_redux.dart';
 
 class StandardTemplate extends StatelessWidget {
@@ -70,19 +70,8 @@ class StandardTemplate extends StatelessWidget {
           final bool isConnected =
               state.ui.networkConnection == NetworkState.connected;
           return Scaffold(
-            appBar: AppBar(
-              title: Text(title),
-            ),
-            body: LoadingOverlay(
-              isLoading: state.ui.loading,
-              child: NetworkOnHandler(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  padding: const EdgeInsets.all(ThemeSettings.spaceSection),
-                  child: body,
-                ),
-              ),
-            ),
+            appBar: StandardAppBar(title: title),
+            body: StandardBodyContainer(body: body),
             floatingActionButton: isConnected && speedDialExists
                 ? SpeedDial(
                     icon: Icons.add,

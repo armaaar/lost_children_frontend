@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 abstract class ThemeSettings {
+  // Screen
+  static const double screenMaxWidth = 1100;
+
   // Colors
   static const MaterialColor colorSwatch = Colors.blue;
   static const Color colorText = Color(0xff000000);
