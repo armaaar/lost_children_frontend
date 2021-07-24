@@ -5,7 +5,7 @@ import 'package:lost_children_frontend/store/AppState.model.dart';
 import 'package:lost_children_frontend/store/ui/actions/networkConnection.action.dart';
 import 'package:lost_children_frontend/utils/GlobalRedux.dart';
 import 'package:lost_children_frontend/utils/NetworkInterface.dart';
-import 'package:lost_children_frontend/widgets/pages/HomePage.dart';
+import 'package:lost_children_frontend/widgets/pages/LostListPage.dart';
 import 'package:lost_children_frontend/widgets/pages/SelectFacePage.dart';
 import 'package:provider_for_redux/provider_for_redux.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -45,9 +45,9 @@ class MainApp extends StatelessWidget {
                     letterSpacing: 0.5,
                     color: ThemeSettings.colorText,
                     fontSize: ThemeSettings.fontSizeNormal))),
-        initialRoute: HomePage.route,
+        initialRoute: LostListPage.route,
         routes: <String, Widget Function(BuildContext)>{
-          HomePage.route: (BuildContext context) => const HomePage(),
+          LostListPage.route: (BuildContext context) => const LostListPage(),
           SelectFacePage.route: (BuildContext context) =>
               const SelectFacePage(),
         },

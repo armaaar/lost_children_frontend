@@ -7,7 +7,7 @@ import 'package:lost_children_frontend/store/uploadedImage/UploadedImage.model.d
 import 'package:lost_children_frontend/utils/functions/showNavigationSnackBar.dart';
 import 'package:lost_children_frontend/utils/requests/requestFacesSelection.dart';
 import 'package:lost_children_frontend/widgets/organisms/CheckboxListForm.dart';
-import 'package:lost_children_frontend/widgets/pages/HomePage.dart';
+import 'package:lost_children_frontend/widgets/pages/LostListPage.dart';
 import 'package:lost_children_frontend/widgets/templates/StandardTemplate.dart';
 import 'package:provider_for_redux/provider_for_redux.dart';
 import 'package:confirm_dialog/confirm_dialog.dart';
@@ -43,7 +43,7 @@ class SelectFacePage extends StatelessWidget {
                 'Error: No image found!!!!!!!!!!',
                 state: SnackBarState.error,
               );
-              await Navigator.pushNamed(context, HomePage.route);
+              await Navigator.pushNamed(context, LostListPage.route);
             });
             return const SizedBox();
           }

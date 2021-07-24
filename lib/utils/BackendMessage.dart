@@ -6,11 +6,13 @@ class BackendMessage {
   final String? code;
   final String message;
   final bool isError;
+  final Map<String, dynamic>? responseObject;
 
   const BackendMessage({
     this.code,
     required this.message,
     required this.isError,
+    this.responseObject,
   });
 
   static bool _isErrorFromStatusCode(int statusCode) {
@@ -23,23 +25,24 @@ class BackendMessage {
 
   factory BackendMessage.fromResponse(http.Response response) {
     String? code;
+    Map<String, dynamic>? responseObject;
     bool isError = _isErrorFromStatusCode(response.statusCode);
     String message = isError
         ? 'Unknown Error (${response.reasonPhrase})'
         : 'Request Succeeded (${response.reasonPhrase})';
 
     try {
-      final dynamic responseObject = jsonDecode(response.body);
+      final dynamic responseDynamicObject = jsonDecode(response.body);
 
-      if (responseObject is String) {
-        message = responseObject;
-      } else if (responseObject is Map) {
+      if (responseDynamicObject is String) {
+        message = responseDynamicObject;
+      } else if (responseDynamicObject is Map) {
+        responseObject = responseDynamicObject as Map<String, dynamic>;
         if (responseObject.containsKey('message')) {
-          message =
-              (responseObject as Map<String, dynamic>)['message'].toString();
+          message = responseObject['message'].toString();
         }
         if (responseObject.containsKey('code')) {
-          code = (responseObject as Map<String, dynamic>)['code'].toString();
+          code = responseObject['code'].toString();
           isError = _isErrorFromMessageCode(code);
         }
       }
@@ -47,9 +50,9 @@ class BackendMessage {
     } catch (e) {}
 
     return BackendMessage(
-      code: code,
-      message: message,
-      isError: isError,
-    );
+        code: code,
+        message: message,
+        isError: isError,
+        responseObject: responseObject);
   }
 }

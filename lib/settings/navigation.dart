@@ -20,13 +20,13 @@ final List<NavigationItem> standardNavigationItems = <NavigationItem>[
         requestImageDetection(context, ImageSelectionMethod.capture),
   ),
   const NavigationItem(
+    label: 'List Lost Children',
+    icon: Icons.people,
+  ),
+  const NavigationItem(
     isPrimary: kIsWeb && !kDebugMode,
     label: 'Search Lost Child',
     icon: Icons.search,
-  ),
-  const NavigationItem(
-    label: 'List Lost Children',
-    icon: Icons.people,
   ),
   ...kDebugMode
       ? <NavigationItem>[

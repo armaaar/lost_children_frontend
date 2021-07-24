@@ -38,3 +38,6 @@ linter:
 
     # Can't get it right, Doesn't really matter
     sort_pub_dependencies: false
+
+    # Somtimes we need to catch specific errors only
+    avoid_catching_errors: false

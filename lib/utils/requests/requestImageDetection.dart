@@ -61,8 +61,7 @@ void requestImageDetection(
   }
 
   // Save marked image to store
-  final Map<String, dynamic> responseObject =
-      jsonDecode(response.body) as Map<String, dynamic>;
+  final Map<String, dynamic> responseObject = backendMessage.responseObject!;
 
   GlobalRedux.dispatch(SetUploadedImageAction(
     imageId: int.parse(responseObject['imageId'].toString()),

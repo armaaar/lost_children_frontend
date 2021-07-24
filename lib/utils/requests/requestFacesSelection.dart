@@ -7,7 +7,7 @@ import 'package:lost_children_frontend/utils/BackendMessage.dart';
 import 'package:lost_children_frontend/utils/GlobalRedux.dart';
 import 'package:lost_children_frontend/utils/functions/sendRequest.dart';
 import 'package:lost_children_frontend/utils/functions/showNavigationSnackBar.dart';
-import 'package:lost_children_frontend/widgets/pages/HomePage.dart';
+import 'package:lost_children_frontend/widgets/pages/LostListPage.dart';
 
 void requestFacesSelection(BuildContext context, List<int> faces) async {
   // Make sure there is an image stored
@@ -17,7 +17,7 @@ void requestFacesSelection(BuildContext context, List<int> faces) async {
       'Error: No image found!',
       state: SnackBarState.error,
     );
-    await Navigator.pushNamed(context, HomePage.route);
+    await Navigator.pushNamed(context, LostListPage.route);
     return;
   }
 
@@ -48,6 +48,6 @@ void requestFacesSelection(BuildContext context, List<int> faces) async {
     '${backendMessage.message}. Thank you for trying to Help!',
     state: SnackBarState.success,
   );
-  await Navigator.pushNamed(context, HomePage.route);
+  await Navigator.pushNamed(context, LostListPage.route);
   GlobalRedux.dispatch(ClearUploadedImageAction());
 }
