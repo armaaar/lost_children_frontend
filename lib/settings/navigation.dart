@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lost_children_frontend/interfaces/NavigationItem.dart';
 import 'package:lost_children_frontend/interfaces/SpeedDialInfo.dart';
 import 'package:lost_children_frontend/utils/requests/requestImageDetection.dart';
+import 'package:lost_children_frontend/widgets/pages/LostListPage.dart';
 
 const SpeedDialInfo standardSpeedDialInfo = SpeedDialInfo(
   label: 'Add a child',
@@ -19,9 +20,11 @@ final List<NavigationItem> standardNavigationItems = <NavigationItem>[
     onPress: (BuildContext context) =>
         requestImageDetection(context, ImageSelectionMethod.capture),
   ),
-  const NavigationItem(
+  NavigationItem(
     label: 'List Lost Children',
     icon: Icons.people,
+    onPress: (BuildContext context) =>
+        Navigator.pushNamed(context, LostListPage.route),
   ),
   const NavigationItem(
     isPrimary: kIsWeb && !kDebugMode,

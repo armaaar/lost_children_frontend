@@ -1,3 +1,4 @@
+import 'package:lost_children_frontend/settings/MapSettings.dart';
 import 'package:lost_children_frontend/utils/GeoLocation.dart';
 import 'package:lost_children_frontend/utils/functions/enumFromString.dart';
 import 'package:lost_children_frontend/utils/functions/tryCast.dart';
@@ -52,5 +53,9 @@ class FaceImage {
     } catch (e) {
       return null;
     }
+  }
+
+  String get mapUrl {
+    return 'https://www.google.com/maps?q=${location.latitude},${location.longitude}&z=${MapSettings.zoom}';
   }
 }

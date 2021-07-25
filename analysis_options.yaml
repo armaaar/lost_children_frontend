@@ -36,7 +36,7 @@ linter:
     # Makes code more verbose
     avoid_redundant_argument_values: false
 
-    # Can't get it right, Doesn't really matter
+    # Don't want to sort packages alphabetically
     sort_pub_dependencies: false
 
     # Somtimes we need to catch specific errors only
