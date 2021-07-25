@@ -34,14 +34,17 @@ class StandardButton extends StatelessWidget {
         ),
       ),
       onPressed: onPressed,
-      child: Row(
-        children: <Widget>[
-          icon != null ? Icon(icon) : const SizedBox.shrink(),
-          SizedBox(
-            width: icon != null && text != null ? ThemeSettings.spaceText : 0,
-          ),
-          text != null ? Text(text!) : const SizedBox.shrink(),
-        ],
+      child: IntrinsicWidth(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            icon != null ? Icon(icon) : const SizedBox.shrink(),
+            SizedBox(
+              width: icon != null && text != null ? ThemeSettings.spaceText : 0,
+            ),
+            text != null ? Text(text!) : const SizedBox.shrink(),
+          ],
+        ),
       ),
     );
   }

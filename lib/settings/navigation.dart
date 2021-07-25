@@ -2,7 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lost_children_frontend/interfaces/NavigationItem.dart';
 import 'package:lost_children_frontend/interfaces/SpeedDialInfo.dart';
+import 'package:lost_children_frontend/utils/functions/navigateTo.dart';
 import 'package:lost_children_frontend/utils/requests/requestImageDetection.dart';
+import 'package:lost_children_frontend/utils/requests/requestLostImages.dart';
 import 'package:lost_children_frontend/widgets/pages/LostListPage.dart';
 
 const SpeedDialInfo standardSpeedDialInfo = SpeedDialInfo(
@@ -23,8 +25,11 @@ final List<NavigationItem> standardNavigationItems = <NavigationItem>[
   NavigationItem(
     label: 'List Lost Children',
     icon: Icons.people,
-    onPress: (BuildContext context) =>
-        Navigator.pushNamed(context, LostListPage.route),
+    onPress: (BuildContext context) async {
+      if (!await navigateTo(context, LostListPage.route)) {
+        requestLostImages(context);
+      }
+    },
   ),
   const NavigationItem(
     isPrimary: kIsWeb && !kDebugMode,

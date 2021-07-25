@@ -5,6 +5,7 @@ import 'package:lost_children_frontend/store/ui/actions/loading.action.dart';
 import 'package:lost_children_frontend/store/uploadedImage/actions/clear.action.dart';
 import 'package:lost_children_frontend/utils/BackendMessage.dart';
 import 'package:lost_children_frontend/utils/GlobalRedux.dart';
+import 'package:lost_children_frontend/utils/functions/navigateTo.dart';
 import 'package:lost_children_frontend/utils/functions/sendRequest.dart';
 import 'package:lost_children_frontend/utils/functions/showNavigationSnackBar.dart';
 import 'package:lost_children_frontend/widgets/pages/LostListPage.dart';
@@ -17,7 +18,7 @@ void requestFacesSelection(BuildContext context, List<int> faces) async {
       'Error: No image found!',
       state: SnackBarState.error,
     );
-    await Navigator.pushNamed(context, LostListPage.route);
+    await navigateTo(context, LostListPage.route);
     return;
   }
 
@@ -48,6 +49,6 @@ void requestFacesSelection(BuildContext context, List<int> faces) async {
     '${backendMessage.message}. Thank you for trying to Help!',
     state: SnackBarState.success,
   );
-  await Navigator.pushNamed(context, LostListPage.route);
+  await navigateTo(context, LostListPage.route);
   GlobalRedux.dispatch(ClearUploadedImageAction());
 }

@@ -8,6 +8,7 @@ import 'package:lost_children_frontend/utils/BackendMessage.dart';
 import 'package:lost_children_frontend/utils/GlobalRedux.dart';
 import 'package:lost_children_frontend/utils/ImageSelector.dart';
 import 'package:lost_children_frontend/utils/GeoLocation.dart';
+import 'package:lost_children_frontend/utils/functions/navigateTo.dart';
 import 'package:lost_children_frontend/utils/functions/sendRequest.dart';
 import 'package:lost_children_frontend/utils/functions/showNavigationSnackBar.dart';
 import 'package:http/http.dart' as http;
@@ -76,5 +77,5 @@ void requestImageDetection(
     backendMessage.message,
     state: SnackBarState.success,
   );
-  await Navigator.pushNamed(context, SelectFacePage.route);
+  await navigateTo(context, SelectFacePage.route);
 }

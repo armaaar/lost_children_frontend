@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lost_children_frontend/interfaces/NavigationItem.dart';
 import 'package:lost_children_frontend/store/AppState.model.dart';
 import 'package:lost_children_frontend/store/uploadedImage/UploadedImage.model.dart';
+import 'package:lost_children_frontend/utils/functions/navigateTo.dart';
 import 'package:lost_children_frontend/utils/functions/showNavigationSnackBar.dart';
 import 'package:lost_children_frontend/utils/requests/requestFacesSelection.dart';
 import 'package:lost_children_frontend/widgets/organisms/CheckboxListForm.dart';
@@ -40,10 +41,10 @@ class SelectFacePage extends StatelessWidget {
             scheduleMicrotask(() async {
               showNavigationSnackBar(
                 context,
-                'Error: No image found!!!!!!!!!!',
+                'Error: No image found!',
                 state: SnackBarState.error,
               );
-              await Navigator.pushNamed(context, LostListPage.route);
+              await navigateTo(context, LostListPage.route);
             });
             return const SizedBox();
           }
