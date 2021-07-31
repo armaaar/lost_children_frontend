@@ -7,11 +7,13 @@ class SetUploadedImageAction extends UploadedImageAction {
   int imageId;
   Uint8List markedImage;
   Map<String, int> facesHandlers;
+  UploadedImageState imageState;
 
   SetUploadedImageAction({
     required this.imageId,
     required this.markedImage,
     required this.facesHandlers,
+    required this.imageState,
   });
 
   @override
@@ -19,5 +21,6 @@ class SetUploadedImageAction extends UploadedImageAction {
         imageId: imageId,
         markedImage: markedImage,
         facesHandlers: facesHandlers,
+        imageState: imageState,
       );
 }
