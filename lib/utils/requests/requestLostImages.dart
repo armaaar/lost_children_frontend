@@ -9,13 +9,27 @@ import 'package:lost_children_frontend/utils/GlobalRedux.dart';
 import 'package:lost_children_frontend/utils/functions/sendRequest.dart';
 import 'package:lost_children_frontend/utils/functions/showNavigationSnackBar.dart';
 
-Future<List<FaceImage>> requestLostImages(BuildContext context) async {
+Future<List<FaceImage>> requestLostImages(
+  BuildContext context, {
+  bool force = false,
+}) async {
   List<FaceImage> result = <FaceImage>[];
   // Send request to backend
-  if (GlobalRedux.state.faceImages.isEmpty) {
-    GlobalRedux.dispatch(EnableLoadingAction());
+  if (GlobalRedux.state.faceImages.isNotEmpty && !force) {
+    return GlobalRedux.state.faceImages;
   }
-  final http.Response response = await sendRequest(APISettings.lostImages);
+  GlobalRedux.dispatch(EnableLoadingAction());
+  final http.Response response;
+  if (GlobalRedux.state.searchedImageId == 0) {
+    response = await sendRequest(APISettings.lostImages);
+  } else {
+    response = await sendRequest(
+      APISettings.findImages,
+      fields: <String, dynamic>{
+        'imageId': GlobalRedux.state.searchedImageId,
+      },
+    );
+  }
   GlobalRedux.dispatch(DisableLoadingAction());
 
   final BackendMessage backendMessage = BackendMessage.fromResponse(response);

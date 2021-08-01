@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:lost_children_frontend/interfaces/ImageState.dart';
 import 'package:lost_children_frontend/interfaces/NavigationItem.dart';
 import 'package:lost_children_frontend/interfaces/SpeedDialInfo.dart';
-import 'package:lost_children_frontend/store/uploadedImage/UploadedImage.model.dart';
+import 'package:lost_children_frontend/store/searchedImageId/actions/clear.action.dart';
+import 'package:lost_children_frontend/utils/GlobalRedux.dart';
 import 'package:lost_children_frontend/utils/functions/navigateTo.dart';
 import 'package:lost_children_frontend/utils/requests/requestImageDetection.dart';
 import 'package:lost_children_frontend/utils/requests/requestLostImages.dart';
@@ -23,15 +25,16 @@ final List<NavigationItem> standardNavigationItems = <NavigationItem>[
     onPress: (BuildContext context) => requestImageDetection(
       context,
       ImageSelectionMethod.capture,
-      UploadedImageState.lost,
+      ImageState.lost,
     ),
   ),
   NavigationItem(
     label: 'List Lost Children',
     icon: Icons.people,
     onPress: (BuildContext context) async {
+      GlobalRedux.dispatch(ClearSearchedImageIdAction());
       if (!await navigateTo(context, LostListPage.route)) {
-        requestLostImages(context);
+        requestLostImages(context, force: true);
       }
     },
   ),
@@ -42,7 +45,7 @@ final List<NavigationItem> standardNavigationItems = <NavigationItem>[
     onPress: (BuildContext context) => requestImageDetection(
       context,
       ImageSelectionMethod.select,
-      UploadedImageState.search,
+      ImageState.search,
     ),
   ),
   ...kDebugMode
@@ -54,7 +57,7 @@ final List<NavigationItem> standardNavigationItems = <NavigationItem>[
             onPress: (BuildContext context) => requestImageDetection(
               context,
               ImageSelectionMethod.select,
-              UploadedImageState.lost,
+              ImageState.lost,
             ),
           ),
         ]

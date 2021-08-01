@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:lost_children_frontend/interfaces/ImageState.dart';
 import 'package:lost_children_frontend/store/uploadedImage/UploadedImage.model.dart';
 import 'package:lost_children_frontend/store/uploadedImage/actions/UploadedImageAction.dart';
 
@@ -7,7 +8,7 @@ class SetUploadedImageAction extends UploadedImageAction {
   int imageId;
   Uint8List markedImage;
   Map<String, int> facesHandlers;
-  UploadedImageState imageState;
+  ImageState imageState;
 
   SetUploadedImageAction({
     required this.imageId,

@@ -1,15 +1,14 @@
+import 'package:lost_children_frontend/interfaces/ImageState.dart';
 import 'package:lost_children_frontend/settings/MapSettings.dart';
 import 'package:lost_children_frontend/utils/GeoLocation.dart';
 import 'package:lost_children_frontend/utils/functions/enumFromString.dart';
 import 'package:lost_children_frontend/utils/functions/tryCast.dart';
 
-enum FaceImageState { lost, search }
-
 class FaceImage {
   final int id;
   final String imagePath;
   final DateTime dateTime;
-  final FaceImageState state;
+  final ImageState state;
   final GeoLocation location;
 
   const FaceImage({
@@ -24,7 +23,7 @@ class FaceImage {
     int? id,
     String? imagePath,
     DateTime? dateTime,
-    FaceImageState? state,
+    ImageState? state,
     GeoLocation? location,
   }) =>
       FaceImage(
@@ -41,8 +40,8 @@ class FaceImage {
         id: tryCast<int>(json['id'])!,
         imagePath: tryCast<String>(json['image'])!,
         dateTime: DateTime.parse(tryCast<String>(json['date_time'])!),
-        state: enumFromString<FaceImageState>(
-          FaceImageState.values,
+        state: enumFromString<ImageState>(
+          ImageState.values,
           tryCast<String>(json['state'])!,
         )!,
         location: GeoLocation(

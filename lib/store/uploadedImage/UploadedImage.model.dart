@@ -1,12 +1,12 @@
 import 'dart:typed_data';
 
-enum UploadedImageState { lost, search }
+import 'package:lost_children_frontend/interfaces/ImageState.dart';
 
 class UploadedImage {
   int? imageId;
   Uint8List? markedImage;
   Map<String, int>? facesHandlers;
-  UploadedImageState? imageState;
+  ImageState? imageState;
 
   UploadedImage({
     this.imageId,
@@ -19,7 +19,7 @@ class UploadedImage {
     int? imageId,
     Uint8List? markedImage,
     Map<String, int>? facesHandlers,
-    UploadedImageState? imageState,
+    ImageState? imageState,
   }) =>
       UploadedImage(
         imageId: imageId ?? this.imageId,

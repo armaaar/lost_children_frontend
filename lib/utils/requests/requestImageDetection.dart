@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lost_children_frontend/interfaces/ImageState.dart';
 import 'package:lost_children_frontend/settings/APISettings.dart';
 import 'package:lost_children_frontend/store/ui/actions/loading.action.dart';
-import 'package:lost_children_frontend/store/uploadedImage/UploadedImage.model.dart';
 import 'package:lost_children_frontend/store/uploadedImage/actions/set.action.dart';
 import 'package:lost_children_frontend/utils/BackendMessage.dart';
 import 'package:lost_children_frontend/utils/GlobalRedux.dart';
@@ -21,11 +21,11 @@ enum ImageSelectionMethod { capture, select }
 void requestImageDetection(
   BuildContext context,
   ImageSelectionMethod selectionMethod,
-  UploadedImageState state,
+  ImageState state,
 ) async {
   // Get location
   GeoLocation location = GeoLocation(null, null);
-  if (state == UploadedImageState.lost) {
+  if (state == ImageState.lost) {
     try {
       location = await GeoLocation.getCurrentLocation();
     } catch (e) {
@@ -49,7 +49,7 @@ void requestImageDetection(
   final http.Response response = await sendRequest(
     APISettings.detect,
     fields: <String, dynamic>{
-      'state': enumToString<UploadedImageState>(state),
+      'state': enumToString<ImageState>(state),
       'location': location,
       'image': base64Encode(await image.readAsBytes())
     },
@@ -83,5 +83,6 @@ void requestImageDetection(
     backendMessage.message,
     state: SnackBarState.success,
   );
+
   await navigateTo(context, SelectFacePage.route);
 }

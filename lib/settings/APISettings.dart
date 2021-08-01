@@ -22,4 +22,8 @@ abstract class APISettings {
     url: '$url/faces/lost/',
     method: RequestMethod.get,
   );
+  static final RequestEndPoint findImages = RequestEndPoint(
+    url: '$url/faces/find/',
+    method: RequestMethod.post,
+  );
 }

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lost_children_frontend/interfaces/NavigationItem.dart';
 import 'package:lost_children_frontend/store/AppState.model.dart';
-import 'package:lost_children_frontend/store/uploadedImage/UploadedImage.model.dart';
 import 'package:lost_children_frontend/utils/functions/navigateTo.dart';
 import 'package:lost_children_frontend/utils/functions/showNavigationSnackBar.dart';
 import 'package:lost_children_frontend/utils/requests/requestFacesSelection.dart';
@@ -35,9 +34,7 @@ class SelectFacePage extends StatelessWidget {
     return ReduxSelector<AppState, dynamic>(
         selector: (_, AppState state) => <dynamic>[state.uploadedImage],
         builder: (BuildContext context, _, AppState state, __, ___, ____) {
-          final UploadedImage uploadedImage = state.uploadedImage;
-
-          if (uploadedImage.isEmpty) {
+          if (state.uploadedImage.isEmpty) {
             scheduleMicrotask(() async {
               showNavigationSnackBar(
                 context,
@@ -56,7 +53,7 @@ class SelectFacePage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Image.memory(
-                  uploadedImage.markedImage!,
+                  state.uploadedImage.markedImage!,
                   fit: BoxFit.contain,
                   width: double.infinity,
                   alignment: Alignment.center,

@@ -1,0 +1,1 @@
+enum ImageState { lost, search }
